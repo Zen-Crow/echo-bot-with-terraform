@@ -32,7 +32,7 @@
 
 - Yandex Cloud
 - API Gateway
-- Serverless Functions (Yandex Functions)
+- Serverless Functions
 - Terraform
 - Python
 
@@ -66,21 +66,21 @@
     
 ## Удаление Webhook'a
 
-1 способ.
+- 1 способ.
 Удаление Webhook в консоли Yandex Cloud.
 
 Перейдите в консоль Yandex Cloud.
-Найдите ваш серверless function, отвечающий за установку Webhook.
+Найдите serverless function, отвечающую за установку Webhook.
 Запустите функцию, которая удаляет Webhook. 
 
 Для этого: Откройте файл webhook.py.
-Установите значение переменной method на "deleteWebhook".
+Установите значение переменной method = "deleteWebhook".
 Сохраните изменения и выполните функцию, чтобы удалить Webhook.
 
-2 способ.
+- 2 способ.
 Удаление Webhook через API Telegram.
 
-Если вы предпочитаете использовать команду, выполните следующую команду в терминале (не забудьте заменить $TELEGRAM_BOT_TOKEN на ваш токен):
+Если вы предпочитаете использовать terminal, выполните следующую команду (не забудьте заменить $TELEGRAM_BOT_TOKEN на ваш токен):
 
 curl -X POST https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/deleteWebhook
 
@@ -88,6 +88,7 @@ curl -X POST https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/deleteWebhook
 ## Описание работы триггера
 
 - Срабатывание триггера:
+
 Триггер запускается каждую минуту, инициируя процесс установки вебхука для Telegram бота. Это позволяет боту получать входящие сообщения от пользователей.
 
 - Работа триггера:
@@ -107,6 +108,7 @@ curl -X POST https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/deleteWebhook
 
 - Вы можете дополнительно адаптировать этот проект под свои нужды или добавлять дополнительные детали, изменив файлы
 index.py и webhook.py необходимо создать zip архив для каждого файла в отдельности со своими зависимостями если это требуется для вашего проекта.
+
 
 
 P.S. Желаю вам успехов в ваших проектах! Верьте в себя и продолжайте двигаться вперед!
