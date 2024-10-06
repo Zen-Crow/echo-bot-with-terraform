@@ -13,7 +13,7 @@ def main(event, context):
         token=TELEGRAM_TOKEN,
         method="setWebhook"
         # method="getWebhookinfo"
-        # method = "deleteWebhook"
+        # method="deleteWebhook"
     )
 
     data = {"url": TELEGRAM_BOT_URL}
