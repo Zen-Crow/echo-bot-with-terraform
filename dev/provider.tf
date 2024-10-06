@@ -19,5 +19,5 @@ provider "yandex" {
 }
 
 locals {
-  telegram_token = var.yc_token
+  telegram_token = var.telegram_token
 }
