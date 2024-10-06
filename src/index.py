@@ -4,7 +4,7 @@ import json
 
 TOKEN = os.getenv('TELEGRAM_TOKEN')
 
-# send message function
+
 def send_message(chat_id, text):
     url = "https://api.telegram.org/bot%s/sendMessage" % (TOKEN)
     data = {'chat_id': chat_id, 'text': text}
@@ -12,7 +12,6 @@ def send_message(chat_id, text):
     return res
 
 
-# функция, которая обрабатывает входящие сообщения от Telegram
 def handler(event, context):
     try:
         body = json.loads(event['body'])
