@@ -16,7 +16,7 @@ resource "yandex_resourcemanager_folder_iam_member" "api_admin" {
 
 ### Set permissions for Telegram-bot
 resource "yandex_function_iam_binding" "function_iam_bot" {
-  function_id = yandex_function.function.id
+  function_id = yandex_function.function_bot.id
   role        = "functions.functionInvoker"
   members = [
     "system:allUsers",
@@ -48,7 +48,7 @@ resource "yandex_api_gateway" "api_gt" {
         post:
           x-yc-apigateway-integration:
             type: cloud-functions
-            function_id: ${yandex_function.function.id}
+            function_id: ${yandex_function.function_bot.id}
             service_account_id: ${yandex_iam_service_account.sa-for-serverless.id}
           operationId: bot-function
   EOT
