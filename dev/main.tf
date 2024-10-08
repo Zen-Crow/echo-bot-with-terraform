@@ -1,6 +1,12 @@
 ### Datasource
 data "yandex_client_config" "client" {}
 
+### Locals
+locals {
+  folder_id      = var.folder_id == null ? data.yandex_client_config.client.folder_id : var.folder_id
+  telegram_token = var.telegram_token
+}
+
 ### Service account
 resource "yandex_iam_service_account" "sa-for-serverless" {
   name        = "sa-for-function"
@@ -9,7 +15,7 @@ resource "yandex_iam_service_account" "sa-for-serverless" {
 
 ### Set permissions API-gateway
 resource "yandex_resourcemanager_folder_iam_member" "api_admin" {
-  folder_id = data.yandex_client_config.client.folder_id
+  folder_id = local.folder_id
   role      = "api-gateway.admin"
   member    = "serviceAccount:${yandex_iam_service_account.sa-for-serverless.id}"
 }
@@ -35,7 +41,7 @@ resource "yandex_function_iam_binding" "function_iam_webhook" {
 ### API-Gateway
 resource "yandex_api_gateway" "api_gt" {
   name        = "bot-api-gateway"
-  folder_id   = data.yandex_client_config.client.folder_id
+  folder_id   = local.folder_id
   description = "API Gateway для обработки вебхуков Telegram"
 
   spec = <<-EOT
@@ -56,7 +62,7 @@ resource "yandex_api_gateway" "api_gt" {
 
 ### Telegram-bot main function
 resource "yandex_function" "function_bot" {
-  folder_id         = data.yandex_client_config.client.folder_id
+  folder_id         = local.folder_id
   name              = "serverless-function"
   user_hash         = "ver1"
   tags              = ["my-tag"]
@@ -79,7 +85,7 @@ resource "yandex_function" "function_bot" {
 
 ### set Webhook
 resource "yandex_function" "function_webhook" {
-  folder_id         = data.yandex_client_config.client.folder_id
+  folder_id         = local.folder_id
   name              = "serverless-function-webhook"
   user_hash         = "ver10"
   tags              = ["my-tag10"]
@@ -103,7 +109,7 @@ resource "yandex_function" "function_webhook" {
 
 ### Trigger for Webhook
 resource "yandex_function_trigger" "webhook_trigger" {
-  folder_id   = data.yandex_client_config.client.folder_id
+  folder_id   = local.folder_id
   name        = "webhook-trigger"
   description = "trigger for set webhook"
 

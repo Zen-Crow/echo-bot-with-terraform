@@ -10,7 +10,6 @@ terraform {
   }
 }
 
-
 provider "yandex" {
   cloud_id  = var.cloud_id
   folder_id = var.folder_id
@@ -18,6 +17,3 @@ provider "yandex" {
   zone      = var.zone
 }
 
-locals {
-  telegram_token = var.telegram_token
-}
